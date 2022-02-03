@@ -88,22 +88,6 @@ def export():
 	pdf.multi_cell(150, 10, text)
 	pdf.output(file_name)
 	pdf.close()
-	# Open pdf for highlighting
-	pdf = fitz.open(file_name)
-	words = text.split()
-	# Find and highlight words containing rhyme
-	for page in pdf:
-		for word in words:
-			phonemes = phonizer.lookup(word)
-			if phonemes != None:
-				phonemeList = phonemes.split()
-				for phoneme in phonemeList:
-					if phoneme in syllables:
-						w = page.searchFor(word)
-						highlightedPage = page.addHighlightAnnot(w)
-						pdf.saveIncr()
-						break
-	pdf.close()
 
 def readme():
 	messagebox.showinfo("Help", "RhymeLight will automatically highlight your rhyme scheme as you write")
